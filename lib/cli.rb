@@ -77,6 +77,7 @@ class CLI
         case my_menu
         when "View Book List" 
             @user.my_books
+            main_menu
         when "Add to Book List"
             search
         when "Logout"
@@ -91,30 +92,18 @@ class CLI
     def search
         puts 'What are you looking for?'
         send_query(user_input)
-        puts (user_input)
+        #menu to select from the results
+        #add the book or go back 
     end 
 
 
+        #create_book function returns the book
+            # @book = create_book
+            #add_to_shelf(@user.id, @book.id) function to create user_book
         
 
-
-
-    #prompt to login or create account 
-
-    #menu with options 
-        #1. View Book List
-            #User method to print and show books
-        #2. Add a book
-            #send_query function 
-                #menu to select from the results
-                #add the book or go back 
-                    #create_book function returns the book
-                        # @book = create_book
-                        #add_to_shelf(@user.id, @book.id) function to create user_book
-        #3. Logout
-        #4. Exit
-
-    
+    def logout 
+    end     
  
 
     def quit
