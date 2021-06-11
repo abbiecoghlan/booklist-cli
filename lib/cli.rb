@@ -40,7 +40,6 @@ class CLI
 
     def login
         "Please enter your Username: "
-        binding.pry
         username = user_input.chomp.downcase
         @user = User.find_by(username: username)
         if @user 
@@ -77,7 +76,7 @@ class CLI
         
         case my_menu
         when "View Book List" 
-            my_books
+            @user.my_books
         when "Add to Book List"
             search
         when "Logout"
