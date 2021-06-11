@@ -1,5 +1,5 @@
-class Userbook < ActiveRecord::Base 
-    has_many :user_books
-    has_many :users, through: :user_books
+class UserBook < ActiveRecord::Base 
+    belongs_to :book
+    belongs_to :user
 
 end
