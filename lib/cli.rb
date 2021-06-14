@@ -114,25 +114,26 @@ class CLI
     end 
 
     def add_to_shelf(book_id)
-        UserBook.create(book_id: book_id, user_id: @user.id)
-        puts "#{book.title} was sucessfully added to your collection!"
-        sleep 1
+        if UserBook.find_by(book_id: book_id, user_id: @user.id)
+            puts "This book is already in your collection!"
+            sleep 1
+        else 
+            UserBook.create(book_id: book_id, user_id: @user.id)
+            puts "#{book.title} was sucessfully added to your collection!"
+            sleep 1          
+        end 
         clear_screen
         main_menu
     end 
         
-
     def logout 
         @user = nil
         login_or_signup_menu
     end     
  
-
     def quit
         clear_screen
         puts "Goodbye!"
     end 
-
-
 
 end 
