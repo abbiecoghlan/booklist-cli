@@ -4,19 +4,39 @@ require 'pry'
 URL = "https://www.googleapis.com/books/v1/volumes?q="
 
 
-
 def send_query(search_term)
     response = HTTParty.get(URL+search_term+"&maxResults=5")
-    data = response.parsed_response
-     
-    #to-do: decide how to parse the results below to present for selection and then to persist to db
-    data["items"].map do |result| 
-        title = result["volumeInfo"]["title"]
-        #sometimes more than one author, sometimes not - will need to add logic 
-        author = puts result["volumeInfo"]["authors"][0] 
-        publisher = result["volumeInfo"]["publisher"]
-    end
+    if response.parsed_response  
+        return response.parsed_response
+    else 
+        return no_results
+    end 
 
-     
 end 
 
+def no_results
+    puts "I'm sorry, no results were found matching your search. Please try again"
+end 
+
+def parse_results(data)
+    books = []
+    data["items"].map do |result|
+        publishing_company = result["volumeInfo"]["publisher"]
+        title = result["volumeInfo"]["title"]
+
+        if result["volumeInfo"]["authors"] 
+            author = result["volumeInfo"]["authors"][0] 
+        elsif result["volumeInfo"]["author"] 
+            author = result["volumeInfo"]["author"]
+        end  
+
+        @book = Book.find_by(title: title, author: author, publishing_company: publishing_company)
+        if @book
+            books.push(@book)
+        else 
+            @book = Book.create(title: title, author: author, publishing_company: publishing_company)
+            books.push(@book)
+        end        
+    end
+    books
+end 

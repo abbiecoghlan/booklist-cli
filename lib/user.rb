@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
             puts "Book #{index + 1}:"
             puts "Title: #{book.title}"
             puts "Author: #{book.author}" 
-            puts "Publishing Company: #{book.publishing_company}"
+            puts "Publishing Company: #{book.publishing_company}" + ("\n")
         end 
     end 
 

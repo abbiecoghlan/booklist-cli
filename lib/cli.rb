@@ -19,7 +19,6 @@ class CLI
         login_or_signup_menu
     end 
 
-    #Prints welcome message, prompt to sign up or login
     def login_or_signup_menu
         prompt = TTY::Prompt.new(active_color: :blue, symbols: {marker: "📚"})
         my_menu = prompt.select("Please select from the following options:") do |menu|
@@ -31,7 +30,7 @@ class CLI
         case my_menu
         when "Login" 
             login
-        when "Create Acount"
+        when "Create Account"
             create_account
         when "Exit"
             quit
@@ -39,14 +38,17 @@ class CLI
     end 
 
     def login
-        "Please enter your Username: "
+        puts "Please enter your Username: "
         username = user_input.chomp.downcase
         @user = User.find_by(username: username)
         if @user 
+            clear_screen
             puts ("Welcome, #{@user.username}")
+            sleep 1
             main_menu
         else 
             puts ("I'm sorry, I couldn't find an account with that username. Please try again, or create a new account.")
+            sleep 1
             login_or_signup_menu
         end 
     end 
@@ -54,11 +56,11 @@ class CLI
     def create_account 
         puts "Enter a username to sign up for Book List!"
         username = user_input
-        
+
         if User.find_by(username: username.downcase)
             puts "I'm sorry, that username is taken!"
         else 
-            @user = User.create(username= username.downcase)
+            @user = User.create(username: username.downcase)
             puts "Welcome, #{@user.username}!"
             sleep 1
             main_menu
@@ -87,22 +89,42 @@ class CLI
         end
     end 
 
-    
-
     def search
         puts 'What are you looking for?'
-        send_query(user_input)
-        #menu to select from the results
-        #add the book or go back 
+        data = send_query(user_input)
+        if data["items"] 
+            books = parse_results(data)
+            book_selection(books)
+        else 
+            no_results
+            sleep 2
+            search
+        end 
     end 
 
+    def book_selection(book_array)
+        prompt = TTY::Prompt.new(active_color: :blue, symbols: {marker: "📚"})
+        choice = prompt.select("Please select a book to add to your reading list:", book_array.map {|book| book.tty_hash}, "Return to menu")
 
-        #create_book function returns the book
-            # @book = create_book
-            #add_to_shelf(@user.id, @book.id) function to create user_book
+        if choice == "Return to menu"
+            main_menu
+        else 
+            add_to_shelf(choice) 
+        end 
+    end 
+
+    def add_to_shelf(book_id)
+        UserBook.create(book_id: book_id, user_id: @user.id)
+        puts "#{book.title} was sucessfully added to your collection!"
+        sleep 1
+        clear_screen
+        main_menu
+    end 
         
 
     def logout 
+        @user = nil
+        login_or_signup_menu
     end     
  
 
