@@ -9,7 +9,8 @@ Book List is a command line application written in Ruby. It has a SQLite databas
 1. Fork and clone this repository into your local environement
 2. cd into the booklist folder from the terminal
 3. run the command `bundle install`
-4. run `rake launch` to launch the application
+4. run `rake install` to create database and run migrations 
+5. run `rake launch` to launch the application
 
 ## Instructions for Use
 1. Once you've followed the instructions and launched the application, follow the menu prompts to login or create an account by signing up

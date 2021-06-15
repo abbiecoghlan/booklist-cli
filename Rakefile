@@ -7,6 +7,11 @@ task :console do
   Pry.start
 end
 
+desc 'install'
+task :launch do 
+  Rake::Task['db:create'].invoke
+  Rake::Task['db:migrate'].invoke
+end
 
 desc 'starts app'
 task :launch do 
