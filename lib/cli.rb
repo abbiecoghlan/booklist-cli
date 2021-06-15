@@ -58,7 +58,6 @@ class CLI
     def create_account 
         puts "Enter a username to sign up for Book List:"
         username = user_input
-        binding.pry
         if username.length < 1 
             puts "Username cannot be blank. Please try again!\n\n"
             login_or_signup_menu
