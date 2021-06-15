@@ -2,13 +2,14 @@ class User < ActiveRecord::Base
     has_many :user_books
     has_many :books, through: :user_books
 
-    def my_books
-        ##iterate over all the user's books
-        self.books.each_with_index do |book, index| 
-            puts "Book #{index + 1}:"
-            puts "Title: #{book.title}"
-            puts "Author: #{book.author}" 
-            puts "Publishing Company: #{book.publishing_company}" + ("\n")
+    def add_to_collection(book_id)
+        if UserBook.find_by(book_id: book_id, user_id: self.id)
+            puts "This book is already in your collection!"
+            sleep 1
+        else 
+            UserBook.create(book_id: book_id, user_id: self.id)
+            puts "Your selection was sucessfully added to your collection!\n\n"
+            sleep 1          
         end 
     end 
 
