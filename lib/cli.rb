@@ -13,7 +13,8 @@ class CLI
     end
 
     def run
-        puts "\n📚 WELCOME TO BOOK LIST 📚\n"
+        puts "\n📚 WELCOME TO BOOK LIST 📚"
+        puts "Book List allows users to search for books to add to a reading list. This virtual 'bookshelf' utilizes the Google Books API to search for and return books matching user queries.\n\n"
         sleep 2
         login_or_signup_menu
     end 
@@ -62,7 +63,7 @@ class CLI
             puts "I'm sorry, that username is taken!"
         else 
             @user = User.create(username: username.downcase)
-            puts "\nWelcome, #{@user.username}!"
+            puts "\nWelcome, #{@user.username}!\n"
             sleep 1
             main_menu
         end 
@@ -71,16 +72,16 @@ class CLI
     def main_menu
         prompt = TTY::Prompt.new(active_color: :blue, symbols: {marker: "📚"})
         my_menu = prompt.select("Please select from the following options:") do |menu|
-            menu.choice 'View Book List'
-            menu.choice 'Add to Book List'
+            menu.choice 'View Reading List'
+            menu.choice 'Add to Reading List'
             menu.choice 'Logout'
             menu.choice 'Exit' 
         end 
         
         case my_menu
-        when "View Book List"
+        when "View Reading List"
             view_books(@user)
-        when "Add to Book List"
+        when "Add to Reading List"
             clear_screen
             search
         when "Logout"
@@ -95,14 +96,11 @@ class CLI
             if user.books.count > 0
             clear_screen
             UserBook.my_books(user.id)
-            binding.pry
-            # user.my_books
-            # user.print_books(user.books)
             puts ""
             main_menu
         else 
             clear_screen
-            puts "Your bookshelf is currently empty.\n\n"
+            puts "Your reading list is currently empty.\n\n"
             main_menu
         end 
     end 
@@ -149,7 +147,8 @@ class CLI
     def logout 
         clear_screen
         @user = nil
-        puts "📚 WELCOME TO BOOK LIST 📚\n\n"
+        puts "📚 WELCOME TO BOOK LIST 📚"
+        puts "Book List allows users to search for books to add to a reading list. This virtual 'bookshelf' utilizes the Google Books API to search for and return books matching user queries.\n\n"
         sleep 1
         login_or_signup_menu
     end     

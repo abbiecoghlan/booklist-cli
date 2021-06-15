@@ -7,4 +7,3 @@ new_cli.run
 
 
 
-puts "Goodbye!"
