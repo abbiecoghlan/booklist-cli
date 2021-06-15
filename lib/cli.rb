@@ -42,7 +42,7 @@ class CLI
        clear_screen
         puts "Please enter your Username: "
         username = user_input.chomp.downcase
-        @user = User.find_by(username: username)
+        @user = User.find_by(username: username) 
         if @user 
             clear_screen
             puts ("\nWelcome, #{@user.username}!")
@@ -58,8 +58,11 @@ class CLI
     def create_account 
         puts "Enter a username to sign up for Book List:"
         username = user_input
-
-        if User.find_by(username: username.downcase)
+        binding.pry
+        if username.length < 1 
+            puts "Username cannot be blank. Please try again!\n\n"
+            login_or_signup_menu
+        elsif User.find_by(username: username.downcase)
             clear_screen
             puts "I'm sorry, that username is taken!\n\n"
             sleep 1
