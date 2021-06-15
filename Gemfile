@@ -7,6 +7,5 @@ gem "require_all"
 gem 'rspec'
 gem 'tty-prompt'
 gem 'tty-table'
-gem 'ruby2d'
 gem 'colorize'
 gem 'httparty'

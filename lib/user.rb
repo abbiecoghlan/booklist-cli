@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
             sleep 1
         else 
             UserBook.create(book_id: book_id, user_id: self.id)
-            puts "Your selection was sucessfully added to your collection!\n\n"
+            puts "Your selection was successfully added to your collection!\n\n"
             sleep 1          
         end 
     end 

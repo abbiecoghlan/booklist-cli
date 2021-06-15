@@ -8,7 +8,7 @@ task :console do
 end
 
 desc 'install'
-task :launch do 
+task :install do 
   Rake::Task['db:create'].invoke
   Rake::Task['db:migrate'].invoke
 end

@@ -21,13 +21,16 @@ end
 def parse_results(data)
     books = []
     data["items"].map do |result|
-        publishing_company = result["volumeInfo"]["publisher"]
-        title = result["volumeInfo"]["title"]
+
+        publishing_company = result["volumeInfo"]["publisher"] ||= "unknown"
+        title = result["volumeInfo"]["title"] ||= "unknown"
 
         if result["volumeInfo"]["authors"] 
-            author = result["volumeInfo"]["authors"][0] 
+            author = result["volumeInfo"]["authors"][0] ||= "unknown"
         elsif result["volumeInfo"]["author"] 
-            author = result["volumeInfo"]["author"]
+            author = result["volumeInfo"]["author"] ||= "unknown"
+        else 
+            author = "unknown"
         end  
 
         @book = Book.find_by(title: title, author: author, publishing_company: publishing_company)
