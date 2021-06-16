@@ -1,6 +1,4 @@
 require "spec_helper"
-
-
 require_relative '../lib/models/user'
 require_relative '../lib/models/book'
 require_relative '../lib/models/user_book'

@@ -1,7 +1,6 @@
 require 'pry'
 
 
-
 class CLI
 
     def user_input
@@ -138,7 +137,6 @@ class CLI
         end 
     end 
 
-        
     def logout 
         clear_screen
         @user = nil

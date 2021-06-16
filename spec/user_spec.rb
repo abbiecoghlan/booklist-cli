@@ -1,6 +1,4 @@
 require "spec_helper"
-
-
 require_relative '../lib/models/user'
 require_relative '../lib/models/book'
 require_relative '../lib/models/user_book'
@@ -15,7 +13,6 @@ RSpec.describe User, :type => :model do
         @little_fires = Book.create(title:"Little Fires Everywhere", author: "Celeste NG", publishing_company: "unknown")
         @ann.add_to_collection(@last_stop.id)
     end
-
 
     describe "#username" do
         it "has a username" do
