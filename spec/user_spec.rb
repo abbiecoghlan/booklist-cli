@@ -11,7 +11,7 @@ RSpec.describe User, :type => :model do
     before(:context) do
         @lisa = User.create(username: "lisaforthewin")
         @ann = User.create(username: "Ann")
-        @last_stop = Book.create(title: "last stop", publishing_company: "unknown", author: "casey")
+        @last_stop = Book.create(title: "One Last Stop", publishing_company: "unknown", author: "Casey McQuiston")
         @little_fires = Book.create(title:"Little Fires Everywhere", author: "Celeste NG", publishing_company: "unknown")
         @ann.add_to_collection(@last_stop.id)
     end
@@ -38,7 +38,7 @@ RSpec.describe User, :type => :model do
     end
 
     describe "Associations" do
-        it "has many books" do
+        it "has many user_books" do
             t = User.reflect_on_association(:user_books)
             expect(t.macro).to eq(:has_many)
         end 
