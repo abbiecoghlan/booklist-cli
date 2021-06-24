@@ -13,7 +13,6 @@ class UserBook < ActiveRecord::Base
             puts "#{user_book.book.author}" 
             print "Publishing Company: ".bold.blue
             puts "#{user_book.book.publishing_company}" + ("\n\n")
-            sleep 1
         end 
 
     end 
