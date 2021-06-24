@@ -11,7 +11,6 @@ RSpec.describe Book, :type => :model do
         @little_fires = Book.create(title:"Little Fires Everywhere", author: "Celeste NG", publishing_company: "unknown")
     end
 
-
     describe "#title" do
         it "can have a title" do
             expect(@last_stop.title).to eq("One Last Stop")

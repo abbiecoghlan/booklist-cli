@@ -11,9 +11,13 @@ class CLI
         system "clear"
     end
 
-    def run
+    def greet
         puts "\n📚 WELCOME TO BOOK LIST 📚".bold.blue
         puts "Book List allows users to search for books to add to a reading list. This virtual 'bookshelf' utilizes the Google Books API to search for and return books matching user queries.\n\n".italic
+    end 
+
+    def run
+        greet
         sleep 2
         login_or_signup_menu
     end 
