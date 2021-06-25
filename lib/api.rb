@@ -10,14 +10,19 @@ class API
         gets.chomp
     end 
 
-    def self.send_query(search_term)
-        response = HTTParty.get(URL+search_term+"&maxResults=5")
-        if response.parsed_response  
-            return response.parsed_response
-        else 
-            return no_results
-        end 
+    #to-do: add logic to catch if userinput is 
+    def self.input_is_valid?(search_term)
+        
+    end 
 
+
+    def self.send_query(search_term)
+        response = HTTParty.get(URL+search_term+"&maxResults=5") rescue false
+        if response && response.parsed_response
+            return response.parsed_response
+        else
+            return false 
+        end 
     end 
 
     def self.no_results
@@ -53,8 +58,8 @@ class API
     def self.search
         puts 'What are you looking for?'
         data = self.send_query(self.user_input)
-        if data["items"] 
-            return books = self.parse_results(data)
+        if data && data["items"]
+            return books = self.parse_results(data)    
         else 
             self.no_results
             sleep 1

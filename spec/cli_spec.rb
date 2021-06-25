@@ -29,6 +29,8 @@ RSpec.describe CLI do
         end 
     end
 
+    #to-do: add more tests for the CLI functions 
+
 
 end
 
