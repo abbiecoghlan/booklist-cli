@@ -12,7 +12,7 @@ class API
 
     #to-do: add logic to catch if userinput is 
     def self.input_is_valid?(search_term)
-        search_term.match(/\d/) && search_term.match(/\d/).length > 4 ? false : true
+        search_term.match(/\d/) && search_term.scan(/\d/).length > 4 ? false : true
     end 
 
 
