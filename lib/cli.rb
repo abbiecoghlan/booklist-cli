@@ -123,7 +123,6 @@ class CLI
         end 
     end 
 
-
     def book_selection(book_array)
         prompt = TTY::Prompt.new(active_color: :bright_blue, symbols: {marker: "📚"})
         choice = prompt.select("Please select a book to add to your reading list:", book_array.map {|book| book.tty_hash}, "Return to menu".italic.red)

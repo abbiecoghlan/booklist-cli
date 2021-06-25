@@ -29,7 +29,6 @@ RSpec.describe UserBook, :type => :model do
         it "prints all of the user books for a specified user" do
             expect{ UserBook.my_books(@ann.id) }.to output(a_string_including("You have #{@ann.books.count} books in your collection")).to_stdout
             expect{ UserBook.my_books(@ann.id) }.to output(a_string_including("#{@ann.books.first.title}")).to_stdout
-
         end 
     end 
 

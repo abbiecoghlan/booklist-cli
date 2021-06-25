@@ -75,13 +75,28 @@ RSpec.describe CLI do
         end 
     end
 
+    describe "#view_books" do
+    let(:cli) { CLI.new }
+        it "should return to the menu" do                        
+            expect(cli).to receive(:main_menu)          
+            cli.view_books(@annie)
+        end
+    end
+
+    describe "#logout" do
+    let(:cli) { CLI.new }
+        it "should redirect the user back to the login menu" do                        
+            expect(cli).to receive(:login_or_signup_menu)            
+            cli.logout
+        end        
+    end
 
     after(:context) do
         @annie.destroy
         @user = User.find_by(username: "new_user")
         @user.destroy
-    end
 
+    end
 
 end
 
