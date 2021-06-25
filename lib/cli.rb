@@ -92,7 +92,8 @@ class CLI
             view_books(@user)
         when "Add to Reading List"
             clear_screen
-            search
+            books = API.search
+            book_selection(books)
         when "Logout"
             logout
         when "Exit"
@@ -114,18 +115,6 @@ class CLI
         end 
     end 
 
-    def search
-        puts 'What are you looking for?'
-        data = API.send_query(user_input)
-        if data["items"] 
-            books = API.parse_results(data)
-            book_selection(books)
-        else 
-            API.no_results
-            sleep 2
-            search
-        end 
-    end 
 
     def book_selection(book_array)
         prompt = TTY::Prompt.new(active_color: :bright_blue, symbols: {marker: "📚"})

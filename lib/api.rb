@@ -6,6 +6,10 @@ URL = "https://www.googleapis.com/books/v1/volumes?q="
 
 class API
 
+    def self.user_input
+        gets.chomp
+    end 
+
     def self.send_query(search_term)
         response = HTTParty.get(URL+search_term+"&maxResults=5")
         if response.parsed_response  
@@ -17,7 +21,7 @@ class API
     end 
 
     def self.no_results
-        puts "I'm sorry, no results were found matching your search. Please try again"
+        puts "I'm sorry, no results were found matching your search. Please try again.\n\n"
     end 
 
     def self.parse_results(data)
@@ -46,5 +50,16 @@ class API
         books
     end 
 
+    def self.search
+        puts 'What are you looking for?'
+        data = self.send_query(self.user_input)
+        if data["items"] 
+            return books = self.parse_results(data)
+        else 
+            self.no_results
+            sleep 1
+            self.search
+        end 
+    end 
 
 end 
