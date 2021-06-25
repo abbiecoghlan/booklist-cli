@@ -8,7 +8,7 @@ require_relative '../lib/cli'
 RSpec.describe CLI do
     
     describe "#greet" do
-        it "provide a description of the app" do
+        it "should provide a description of the app" do
             expect { CLI.new.greet }.to output(a_string_including("Book List allows users to search for books to add to a reading list. This virtual 'bookshelf' utilizes the Google Books API to search for and return books matching user queries.")).to_stdout
         end 
     end
@@ -20,8 +20,18 @@ RSpec.describe CLI do
             expect(CLI.new.user_input).to eq("Abbie Coghlan")
         end 
     end
-
     
+    describe "#run" do
+        let(:cli) { CLI.new }
+        it "should take user to login menu" do
+            expect(cli).to receive(:login_or_signup_menu)
+            cli.run
+        end 
+    end
+
+ 
+
+
 
 end
 
