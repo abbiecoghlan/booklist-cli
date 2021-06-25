@@ -32,6 +32,7 @@ class CLI
         
         case my_menu
         when "Login" 
+            clear_screen
             login
         when "Create Account"
             clear_screen
@@ -42,10 +43,10 @@ class CLI
     end 
 
     def login
-       clear_screen
         puts "Please enter your Username: "
         username = user_input.chomp.downcase
-        @user = User.find_by(username: username) 
+        @user = User.find_user(username)
+
         if @user 
             clear_screen
             puts ("\nWelcome, #{@user.username}!")
@@ -60,22 +61,29 @@ class CLI
 
     def create_account 
         puts "Enter a username to sign up for Book List:"
-        username = user_input
+        username = user_input.downcase
+        validate_username(username)
+        @user = User.create(username: username)
+
+        clear_screen
+        puts "\nWelcome, #{@user.username}!\n"
+        sleep 1
+        main_menu
+    end 
+
+
+    def validate_username(username)
         if username.length < 1 
+            clear_screen
             puts "Username cannot be blank. Please try again!\n\n"
-            login_or_signup_menu
-        elsif User.find_by(username: username.downcase)
+            create_account
+        elsif User.find_by(username: username)
             clear_screen
             puts "I'm sorry, that username is taken!\n\n"
             sleep 1
-            create_account
-        else 
-            @user = User.create(username: username.downcase)
-            puts "\nWelcome, #{@user.username}!\n"
-            sleep 1
-            clear_screen
-            main_menu
+            create_account      
         end 
+
     end 
 
     def main_menu
@@ -102,9 +110,9 @@ class CLI
     end 
 
     def view_books(user)
-        puts "#{user.username}'s book collection\n\n"
-            if user.books.count > 0
+        if user.books.count > 0
             clear_screen
+            puts "#{user.username}'s book collection\n\n"
             UserBook.my_books(user.id)
             puts ""
             main_menu

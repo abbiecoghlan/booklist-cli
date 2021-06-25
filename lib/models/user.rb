@@ -3,6 +3,11 @@ class User < ActiveRecord::Base
     has_many :books, through: :user_books
     validates :username, presence: true
 
+ 
+    def self.find_user(username)
+        User.find_by(username: username) 
+    end 
+  
     def add_to_collection(book_id)
         if UserBook.find_by(book_id: book_id, user_id: self.id)
             puts "This book is already in your collection!"
