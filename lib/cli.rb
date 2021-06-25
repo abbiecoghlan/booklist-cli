@@ -116,12 +116,12 @@ class CLI
 
     def search
         puts 'What are you looking for?'
-        data = send_query(user_input)
+        data = API.send_query(user_input)
         if data["items"] 
-            books = parse_results(data)
+            books = API.parse_results(data)
             book_selection(books)
         else 
-            no_results
+            API.no_results
             sleep 2
             search
         end 
