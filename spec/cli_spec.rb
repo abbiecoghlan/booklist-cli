@@ -49,8 +49,37 @@ RSpec.describe CLI do
         end
     end
 
+    describe "#create_account" do
+    let(:cli) { CLI.new }
+    let(:input) { StringIO.new("new_user") }
+        it "should take user to the memu" do                       
+            $stdin = input           
+            expect(cli).to receive(:main_menu)            
+            cli.create_account
+        end
+        it "should create a new account" do 
+            expect(User.find_by(username: "new_user")).to be_instance_of User
+            expect(User.find_by(username: "this_user_doesnt_exist")).not_to be_instance_of User
+        end 
+    end
+
+    describe "#validate_username" do
+    let(:cli) { CLI.new }
+        it "should redirect the user if the field is blank" do                        
+            expect(cli).to receive(:create_account)            
+            cli.validate_username("")
+        end
+        it "should redirect the user if the username is taken" do 
+            expect(cli).to receive(:create_account)            
+            cli.validate_username("annie")
+        end 
+    end
+
+
     after(:context) do
         @annie.destroy
+        @user = User.find_by(username: "new_user")
+        @user.destroy
     end
 
 

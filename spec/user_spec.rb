@@ -14,17 +14,19 @@ RSpec.describe User, :type => :model do
         @ann.add_to_collection(@last_stop.id)
     end
 
-    describe "#username" do
-        it "has a username" do
-            expect(@lisa.username).to eq("lisaforthewin")
-        end
-    end
-
+  
     describe "validation" do
         it "is not valid without a username" do
             abbie = User.new(username: "")
             expect(abbie).to_not be_valid
         end
+    end
+    
+    describe "Associations" do
+        it "has many user_books" do
+            t = User.reflect_on_association(:user_books)
+            expect(t.macro).to eq(:has_many)
+        end 
     end
 
     describe ".all" do
@@ -34,22 +36,7 @@ RSpec.describe User, :type => :model do
         end
     end
 
-    describe "Associations" do
-        it "has many user_books" do
-            t = User.reflect_on_association(:user_books)
-            expect(t.macro).to eq(:has_many)
-        end 
-    end
-
-    describe "Validations" do
-        it "has a username" do 
-            user = User.new(username: "")
-            user.valid?
-            expect(user.errors[:username].size).to eq(1)
-        end 
-    end
-
-    describe ".add_to_collection" do
+    describe "#add_to_collection" do
         it "adds a book to a user's reading list" do
             expect(@ann.books).to include(@last_stop)
             expect(@ann.books).not_to include(@little_fires)

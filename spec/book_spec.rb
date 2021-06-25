@@ -11,23 +11,6 @@ RSpec.describe Book, :type => :model do
         @little_fires = Book.create(title:"Little Fires Everywhere", author: "Celeste NG", publishing_company: "unknown")
     end
 
-    describe "#title" do
-        it "can have a title" do
-            expect(@last_stop.title).to eq("One Last Stop")
-        end
-    end
-
-    describe "#publishing_company" do
-        it "can have a publishing company" do
-            expect(@last_stop.publishing_company).to eq("unknown")
-        end
-    end
-
-    describe "#author" do
-        it "can have an author" do
-            expect(@last_stop.author).to eq("Casey McQuiston")
-        end
-    end
 
     describe ".all" do
         it "knows about all book instances" do
@@ -43,7 +26,7 @@ RSpec.describe Book, :type => :model do
         end 
     end
 
-    describe ".tty_hash" do
+    describe "#tty_hash" do
         it "returns a hash for the ttyPrompt with author, title, and publishing co as a key and id as return value" do
             expect(@last_stop.tty_hash).to eq({"Title: One Last Stop\nAuthor: Casey McQuiston\nPublishing Company: unknown\n"=>@last_stop.id})
         end
