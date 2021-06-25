@@ -13,5 +13,15 @@ RSpec.describe CLI do
         end 
     end
 
+    describe "#user_input" do
+        let(:input) { StringIO.new("Abbie Coghlan") }
+        it "should be capture the users input" do
+            $stdin = input            
+            expect(CLI.new.user_input).to eq("Abbie Coghlan")
+        end 
+    end
+
+    
+
 end
 
