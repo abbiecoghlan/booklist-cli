@@ -4,7 +4,7 @@ require 'pry'
 class CLI
 
     def user_input
-        gets.chomp
+        input = gets.chomp
     end 
 
     def clear_screen
@@ -18,7 +18,7 @@ class CLI
 
     def run
         greet
-        sleep 2
+        sleep 1
         login_or_signup_menu
     end 
 

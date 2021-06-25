@@ -12,7 +12,7 @@ class API
 
     #to-do: add logic to catch if userinput is 
     def self.input_is_valid?(search_term)
-        
+        search_term.match(/\d/) && search_term.match(/\d/).length > 4 ? false : true
     end 
 
 
@@ -57,7 +57,13 @@ class API
 
     def self.search
         puts 'What are you looking for?'
-        data = self.send_query(self.user_input)
+        search_term = self.user_input
+
+        if !self.input_is_valid?(search_term)
+            return false
+        end 
+
+        data = self.send_query(search_term)
         if data && data["items"]
             return books = self.parse_results(data)    
         else 
