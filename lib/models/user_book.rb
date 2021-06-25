@@ -13,7 +13,9 @@ class UserBook < ActiveRecord::Base
             puts "#{user_book.book.author}" 
             print "Publishing Company: ".bold.blue
             puts "#{user_book.book.publishing_company}" + ("\n\n")
-        end 
+        end
+        
+        puts "You have #{books.count} books in your collection"
 
     end 
 
